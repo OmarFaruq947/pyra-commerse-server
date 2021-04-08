@@ -23,25 +23,30 @@ client.connect(err => {
   const productCollection = client.db("pyra").collection("Commerce");
 
 
+  // ...........get method start............
 app.get('/Commerce', (req, res) => {
   productCollection.find()
   .toArray((err, items) => {
     res.send(items)
+    // console.log('from database', items);
   })
 })
+// ...........get method END............
 
 
-
-
-  app.post('/addProduct'), (req,res) => {
+// ...........post method start............
+  app.post('/AddProduct', (req,res) => {
     const newProuct = req.body;
-    console.log('ading new event: ', newProuct);
+    // console.log('ading new event: ', newProuct);
     productCollection.insertOne(newProuct)
     .then(result => {
-      console.log('inserted count',result.insertedCount)
+      // console.log('inserted count.....',result.insertedCount);
       res.send( result.insertedCount > 0 )
     } )
-  }
+  })
+  // ...........post method END............
+
+
 
   // client.close();
 });
